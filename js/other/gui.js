@@ -95,6 +95,25 @@ function registerGUIEvents() {
 			}
 		}
 	});
+	// ============ POKEMON ============
+	async function startPokemon(path) {
+		var datauri = await fetch(path).then(response => response.text());
+		if (datauri != null && datauri.length > 0) {
+			try {
+				initPlayer();
+				start(mainCanvas, base64_decode(datauri));
+			}
+			catch (error) {
+				alert(error.message + " file: " + error.fileName + " line: " + error.lineNumber);
+			}
+		}
+	}
+	addEvent("click", document.getElementById("start_pokemon_red"), function () { startPokemon("pokemon/red.b64") });
+	addEvent("click", document.getElementById("start_pokemon_blue"), function () { startPokemon("pokemon/blue.b64") });
+	addEvent("click", document.getElementById("start_pokemon_yellow"), function () { startPokemon("pokemon/yellow.b64") });
+	addEvent("click", document.getElementById("start_pokemon_gold"), function () { startPokemon("pokemon/gold.b64") });
+	addEvent("click", document.getElementById("start_pokemon_silver"), function () { startPokemon("pokemon/silver.b64") });
+	addEvent("click", document.getElementById("start_pokemon_crystal"), function () { startPokemon("pokemon/crystal.b64") });
 	addEvent("click", document.getElementById("set_volume"), function () {
 		if (GameBoyEmulatorInitialized()) {
 			var volume = prompt("Set the volume here:", "1.0");
